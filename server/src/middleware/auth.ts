@@ -5,7 +5,7 @@ interface JwtPayload {
   username: string;
 }
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateToken = (req: Request, res: Response, next: NextFunction): any => {
   const token = req.headers['authorization']?.split(' ')[1];
 
   if (!token) {
@@ -13,10 +13,12 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
   }
 
   try {
-    const secretKey = process.env.JWT_SECRET || 'your_jwt_secret'; // Ensure this is set in a secure way
+    const secretKey = process.env.JWT_SECRET || 'onthelow'; 
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
 
-    // Attach decoded user data to the request object
+    if (!decoded.username) {
+      return res.status(403).json({ message: 'Invalid token.' });
+    }
     (req as any).user = decoded;
     next();
   } catch (error) {
