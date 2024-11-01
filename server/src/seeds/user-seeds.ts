@@ -5,5 +5,6 @@ export const seedUsers = async () => {
     { username: 'JollyGuru', password: 'password' },
     { username: 'SunnyScribe', password: 'password' },
     { username: 'RadiantComet', password: 'password' },
+    { username: 'keenan', password: 'password' },
   ], { individualHooks: true });
 };
