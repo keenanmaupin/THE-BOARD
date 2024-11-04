@@ -20,7 +20,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     }
 
     // Generate JWT token
-    const secretKey = process.env.JWT_SECRET || 'onthelow'; 
+    const secretKey = process.env.JWT_SECRET ; 
     const token = jwt.sign({ username: user.username, id: user }, secretKey, { expiresIn: '1h' });
 
     // Return the token
