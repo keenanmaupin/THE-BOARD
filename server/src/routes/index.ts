@@ -9,6 +9,6 @@ const router = Router();
 router.use('/auth', authRoutes);
 
 // Add authentication to the API routes
-router.use('/api', authenticateToken, apiRoutes); // Apply the middleware here
+router.use('/api', authenticateToken, apiRoutes); 
 
 export default router;
