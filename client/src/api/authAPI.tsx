@@ -4,6 +4,7 @@ import axios from 'axios';
 const login = async (userInfo: UserLogin) => {
   try {
     const response = await axios.post('/auth/login', userInfo);
+    console.log(response);
     return { success: true, token: response.data.token }; // Ensure the token is correctly fetched from the response
   } catch (error: unknown) {
     // Check if error is an instance of Error before accessing message

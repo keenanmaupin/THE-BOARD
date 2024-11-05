@@ -8,13 +8,15 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
   try {
     // Check if the user exists
-    const user = await User.findOne(username);
+    const user = await User.findOne({where: { username: username}});
+    console.log(user);
     if (!user) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
 
     // Verify the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+    console.log(isPasswordValid);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid username or password' });
     }
@@ -22,7 +24,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     // Generate JWT token
     const secretKey = process.env.JWT_SECRET_KEY || 'onthelow' ; 
     const token = jwt.sign({ username: user.username, id: user }, secretKey, { expiresIn: '1h' });
-
+    console.log(token);
     // Return the token
     return res.json({ token });
   } catch (error) {
